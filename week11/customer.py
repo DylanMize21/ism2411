@@ -18,4 +18,12 @@ customer['tier'] = 'Platinum'
 print(customer)
 del customer['name']
 
+print(customer.get('ytd_spend',0))
+
+
 print("---Exercise 3 --- ")
+print(customer.get("email", "no email on file"))
+
+
+
+

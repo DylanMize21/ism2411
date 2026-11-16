@@ -1,3 +1,10 @@
+print("reflection")
+# In the real world you see the difference when using .get() vs using bracket notation. 
+# an example is when you are trying to access a key that may not exist in the directory. 
+# The rule of thumb is to use .get() when you are not sure if the key exists and use bracket notation when you are sure the key exists.
+
+# This pattern reminds you of a Pivot Table formula in excel, where data is in groups and has catagories. 
+# Python is more usefull when you have a large amount of data and you want to group it by catagory because it does not crash like excell and takes up less storgae.
 print("---Exercise 1 --- ")
 customer = {
     "name" : "Alice",
@@ -79,7 +86,8 @@ for customer in customers:
         if product_details["stock"] < 20:
             print(f"LOW STOCK: {product_name} - only {product_details['stock']} left")
 
-            print("---Exercise 8 --- ")
+ 
+print("---Exercise 8 --- ")
 
 transactions = [
     {"region": "South", "amount": 300},
@@ -89,14 +97,14 @@ transactions = [
     {"region": "North", "amount": 100}
 ]
 
-region_summary = {}
+sales_by_region= {}
 
 for tx in transactions:
     region = tx["region"]
     amount = tx["amount"]
     
-    region_summary[region] = region_summary.get(region, 0) + amount
+    sales_by_region[region] = sales_by_region.get(region, 0) + amount
 
 print("Sales Summary by Region:")
-for region in sorted(region_summary.keys()):
-    print(f"{region}: ${region_summary[region]:.2f}")
+for region in sorted(sales_by_region.keys()):
+    print(f"{region}: ${sales_by_region[region]:.2f}")

@@ -1,0 +1,22 @@
+#Reflection 
+#1 Doing this ETL pipeline in Python is repeatable and automated, meaning I can re-run the script on updated CSV files in very quick times without making alot of clicks, filters, or formulas.
+# Excel is better for quick visual exploration and formatting reports for people with less tech experience users, whereas Python handles massive datasets, strict data-type rules, and version control much more reliably.
+
+#2 A daily online order sync or payment gateway processor would benefit from an append-mode log file. Because append mode ("a") adds new entries to the bottom without erasing previous runs, it creates a permanent readable trail with timestamps and revenue totals that teams can review to troubleshoot failures or verify historical batches.
+
+import csv
+from datetime import datetime
+
+sales_file = "data/sales.csv"
+cleaned_file = "data/cleaned.csv"
+log_file = "data/run_log.txt"
+
+print("---Exercise 1---")
+with open(sales_file, "r", newline="") as f:
+    print(f"Opened {sales_file}.")
+
+print("\n---Exercise 2---")
+with open(sales_file, "r", newline="") as f:
+    reader = csv.reader(f)
+    for row in reader:
+        print(row)

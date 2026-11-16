@@ -32,13 +32,13 @@ with open(sales_file, "r", newline="") as f:
     for row in reader:
         print(row)
 
-        
+
 
 print("\n---Exercise 4---")
 total_revenue = 0.0
 with open(sales_file, "r", newline="") as f:
     reader = csv.reader(f)
-    next(reader)  # skip header
+    next(reader) 
     for row in reader:
         product = row[0]
         price = float(row[1])
@@ -48,3 +48,63 @@ with open(sales_file, "r", newline="") as f:
         print(f"{product}: {quantity} units × ${price:.2f} = ${line_total:.2f}")
 
 print(f"Total Revenue: ${total_revenue:.2f}")
+
+
+
+
+print("\n---Exercise 5---")
+original_rows = 0
+written_rows = 0
+with open(sales_file, "r", newline="") as infile, open(cleaned_file, "w", newline="") as outfile:
+    reader = csv.reader(infile)
+    writer = csv.writer(outfile)
+    next(reader) 
+    writer.writerow(["Product", "Price", "Qty", "Total"])
+
+    for row in reader:
+        original_rows += 1
+        product = row[0]
+        price = float(row[1])
+        quantity = int(row[2])
+        line_total = price * quantity
+
+        if line_total > 100:
+            writer.writerow([product, f"{price:.2f}", quantity, f"{line_total:.2f}"])
+            written_rows += 1
+
+print(f"Wrote {written_rows} qualifying rows out of {original_rows} original rows.")
+
+
+
+print("\n---Exercise 6---")
+# csv.reader is faster and useful for simple files without headers or when column positions never change.
+# csv.DictReader is better when files have clear column headers, making code easier to read and safe if columns get reordered.
+dict_total = 0.0
+with open(sales_file, "r", newline="") as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        price = float(row["price"])
+        quantity = int(row["quantity"])
+        dict_total += price * quantity
+
+print(f"DictReader Total Revenue: ${dict_total:.2f}")
+
+print("\n---Exercise 7---")
+summary = {}
+with open(sales_file, "r", newline="") as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        product = row["product"]
+        total = float(row["price"]) * int(row["quantity"])
+        summary[product] = summary.get(product, 0.0) + total
+
+for product in sorted(summary):
+    print(f"{product}: ${summary[product]:.2f}")
+
+
+print("\n---Exercise 8---")
+timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+with open(log_file, "a") as f:
+    f.write(f"{timestamp} - Total Revenue: ${total_revenue:.2f}\n")
+
+print(f"Appended run entry to {log_file}.")

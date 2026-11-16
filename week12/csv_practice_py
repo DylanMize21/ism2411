@@ -15,8 +15,36 @@ print("---Exercise 1---")
 with open(sales_file, "r", newline="") as f:
     print(f"Opened {sales_file}.")
 
+
+
 print("\n---Exercise 2---")
 with open(sales_file, "r", newline="") as f:
     reader = csv.reader(f)
     for row in reader:
         print(row)
+
+
+print("\n---Exercise 3---")
+with open(sales_file, "r", newline="") as f:
+    reader = csv.reader(f)
+    header = next(reader)
+    print(f"Header: {header}")
+    for row in reader:
+        print(row)
+
+        
+
+print("\n---Exercise 4---")
+total_revenue = 0.0
+with open(sales_file, "r", newline="") as f:
+    reader = csv.reader(f)
+    next(reader)  # skip header
+    for row in reader:
+        product = row[0]
+        price = float(row[1])
+        quantity = int(row[2])
+        line_total = price * quantity
+        total_revenue += line_total
+        print(f"{product}: {quantity} units × ${price:.2f} = ${line_total:.2f}")
+
+print(f"Total Revenue: ${total_revenue:.2f}")
